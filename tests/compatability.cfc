@@ -1,4 +1,3 @@
-plugins
 <cfcomponent extends="wheelsMapping.Test">
 
 	<cffunction name="setup">
