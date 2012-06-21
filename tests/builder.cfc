@@ -21,6 +21,14 @@
 		<cfset loc.r = loc.formbuilder.start(argumentCollection=loc.args).end()>
 		<cfset assert('loc.e eq loc.r')>
 	</cffunction>
+	
+	<cffunction name="test_multiple_calls">
+		<cfset loc.e = '<form action="#loc.argsaction#" method="post">#chr(10)#</form>'>		
+		<cfset loc.r = loc.formbuilder.start(argumentCollection=loc.args).end()>
+		<cfset assert('loc.e eq loc.r')>
+		<cfset loc.r = loc.formbuilder.start(argumentCollection=loc.args).end()>
+		<cfset assert('loc.e eq loc.r')>
+	</cffunction>
 
 	<cffunction name="test_basic_start_and_end_tag_with_get_method">
 		<cfset loc.args.method="get">
@@ -88,6 +96,26 @@
 		<cfset loc.r = loc.formbuilder
 						.start(argumentCollection=loc.args)
 						.textField(label="First Name", property="firstName", maxlength="100")
+						.end()>
+		<cfset assert('loc.e eq loc.r')>
+	</cffunction>
+	
+	<cffunction name="test_fieldset_and_legend_functionality">
+		<cfset loc.e = '<form action="#loc.argsaction#" method="post">#chr(10)#<fieldset>#chr(10)#<legend>User Information</legend>#chr(10)#<label for="user-firstName">First Name<input id="user-firstName" maxlength="50" name="user[firstName]" type="text" value="" /></label>#chr(10)#</fieldset>#chr(10)#</form>'>
+		<cfset loc.r = loc.formbuilder
+						.start(argumentCollection=loc.args)
+							.fieldset()
+								.legend("User Information")
+								.textField(label="First Name", property="firstName")
+							.end()
+						.end()>
+		<cfset assert('loc.e eq loc.r')>
+		<cfset loc.r = loc.formbuilder
+						.start(argumentCollection=loc.args)
+							.fieldsetTag()
+								.legendTag("User Information")
+								.textField(label="First Name", property="firstName")
+							.end()
 						.end()>
 		<cfset assert('loc.e eq loc.r')>
 	</cffunction>

@@ -4,7 +4,7 @@
 	// store the output for later rendering
 	variables.output = [];
 	// track the level that we are at
-	variables.level = 1;
+	variables.levels = [];
 	variables.startFormTagAttributes = {};
 	// allow per instance defaults for form methods
 	variables.defaults = {};
@@ -52,6 +52,21 @@
 			this.append(variables.FormFieldsObj.endFormTag());
 			loc.ret = ArrayToList(variables.output, chr(10));
 			this.$outputForm(loc.ret);
+			ArrayClear(variables.output);
+		}
+		else
+		{
+
+			loc.level = $getNextLevel();
+			
+			switch (loc.level) {
+			
+				case "fieldset":
+					this.append(variables.FormFieldsObj.endFieldSet());
+					break;
+				
+			}
+			
 		}
 		</cfscript>
 		<cfreturn loc.ret>
@@ -70,7 +85,14 @@
 	</cffunction>
 	
 	<cffunction name="$atRootLevel" access="public" returntype="boolean" output="false">
-		<cfreturn variables.level eq 1>
+		<cfreturn ArrayIsEmpty(variables.levels)>
+	</cffunction>
+	
+	<cffunction name="$getNextLevel" access="public" returntype="string" output="false">
+		<cfset var loc = {}>
+		<cfset loc.level = variables.levels[1]>
+		<cfset ArrayDeleteAt(variables.levels, 1)>
+		<cfreturn loc.level>
 	</cffunction>
 	
 	<cffunction name="$createFormField" access="public" returntype="any" output="false">
@@ -87,6 +109,16 @@
 		<!--- mark the form as an upload if we create a file field --->
 		<cfif ListFind("fileField,fileFieldTag", loc.formField)>
 			<cfset variables.startFormTagAttributes["multipart"] = true>
+		</cfif>
+		
+		<!--- add a level if fieldset is called --->
+		<cfif ListFind("fieldset,fieldsetTag", loc.formField)>
+			<cfset ArrayAppend(variables.levels, "fieldset")>
+		</cfif>
+		
+		<!--- don't --->
+		<cfif ListFind("fieldset,fieldsetTag,legend,legendTag", loc.formField)>
+			<cfset StructDelete(arguments, "objectName", false)>
 		</cfif>
 		
 		<cfset loc.args = $mergeMethodDefaults(loc.formField, arguments)>
