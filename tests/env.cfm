@@ -5,3 +5,4 @@
 <cfset application.wheels.modelPath = "#loc.assetsPath#/models">		
 <cfset application.wheels.modelComponentPath = "#loc.assetsCPath#.models">
 <cfset application.wheels.transactionMode = "none">
+<cfset application.wheels.plugins = {}>
