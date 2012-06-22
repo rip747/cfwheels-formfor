@@ -105,7 +105,7 @@
 		<cfset loc.r = loc.formbuilder
 						.start(argumentCollection=loc.args)
 							.fieldset()
-								.legend("User Information")
+								.legend(content="User Information")
 								.textField(label="First Name", property="firstName")
 							.end()
 						.end()>
@@ -113,7 +113,7 @@
 		<cfset loc.r = loc.formbuilder
 						.start(argumentCollection=loc.args)
 							.fieldsetTag()
-								.legendTag("User Information")
+								.legendTag(content="User Information")
 								.textField(label="First Name", property="firstName")
 							.end()
 						.end()>

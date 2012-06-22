@@ -84,9 +84,6 @@
 		<cfreturn this>
 	</cffunction>
 	
-	<cffunction>
-	
-	
 	<cffunction name="$atRootLevel" access="public" returntype="boolean" output="false">
 		<cfreturn ArrayIsEmpty(variables.levels)>
 	</cffunction>

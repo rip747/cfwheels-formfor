@@ -16,7 +16,7 @@
 		<cfset loc.args.context=loc.context>
 	</cffunction>
 	
-	<cffunction name="test_just_making_sure_field_attributes_work">
+	<cffunction name="_test_just_making_sure_field_attributes_work">
 		<cfset loc.args.as = "wheelsUser">
 		<cfset loc.e = '<form action="#loc.argsaction#" method="post">#chr(10)#<label for="wheelsUser-firstName">First Name<input id="wheelsUser-firstName" maxlength="100" name="wheelsUser[firstName]" type="text" value="" /></label>#chr(10)#</form>'>
 		<cfset loc.r = loc.formbuilder

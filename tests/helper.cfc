@@ -35,5 +35,5 @@
 		<cfset loc.e = '<form action="#loc.argsaction#" method="post">#chr(10)#<label for="wheelsUser-lastname">Lastname<input id="wheelsUser-lastname" maxlength="50" name="wheelsUser[lastname]" type="text" value="" /></label>#chr(10)#</form>'>
 		<cfset assert('loc.e eq loc.r')>
 	</cffunction>
-
+	
 </cfcomponent>
